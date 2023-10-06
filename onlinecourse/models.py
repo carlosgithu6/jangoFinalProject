@@ -97,7 +97,7 @@ class Enrollment(models.Model):
 class Question(models.Model):
     course   = models.ForeignKey(Course,on_delete=models.CASCADE)
     content = models.CharField(max_length=1000)
-    grade    = models.IntegerField(default=0)
+    grade    = models.IntegerField(default=50)
 
     def __str__(self):
         return "Question: " + self.content
@@ -112,12 +112,12 @@ class Question(models.Model):
 
 class Choice(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
-    text = models.CharField(max_length=200)
+    content = models.CharField(max_length=200)
     is_correct = models.BooleanField(default=False)
 
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment,on_delete=models.CASCADE)
-    choice = models.ManyToManyField(Choice)
+    choices = models.ManyToManyField(Choice)
 
 
 # One enrollment could have multiple submission
